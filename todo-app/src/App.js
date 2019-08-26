@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./img/logo.jpg";
 import "./App.css";
 
 function App() {
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
+  const onHandleSubmit = e => {
+    e.preventDefault();
+    if (todo != "") {
+      todos.push(todo);
+      console.log(todos);
+      setTodo("");
+    }
+  };
   return (
     <div>
       <nav className="navbar navbar-light bg-light">
@@ -21,18 +31,27 @@ function App() {
       <div className="container">
         <div className="row">
           <div className="col-4">
-            <input className="form-control" type="text" />
-            <button type="submit" className="btn btn-primary btn-lg btn-block">
-              Add
-            </button>
+            <form onSubmit={e => onHandleSubmit(e)}>
+              <input
+                className="form-control"
+                type="text"
+                onChange={e => setTodo(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg btn-block"
+              >
+                Add
+              </button>
+            </form>
           </div>
           <div className="col-8">
             <ul className="list-group">
-              <li className="list-group-item">Cras justo odio</li>
-              <li className="list-group-item">Dapibus ac facilisis in</li>
-              <li className="list-group-item">Morbi leo risus</li>
-              <li className="list-group-item">Porta ac consectetur ac</li>
-              <li className="list-group-item">Vestibulum at eros</li>
+              {todos.map((item, index) => (
+                <li key={index} className="list-group-item">
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
