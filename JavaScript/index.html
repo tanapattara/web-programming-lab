@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo JS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>TODO.JS Application</h1>
+        <p>Add your TODO task to textbox</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="input-todo" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-primary" type="button" id="button-add">+</button>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-8">
+                <ul class="list-group" id="todo-list"></ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("button-add").addEventListener('click', addToList);
+        
+        function addToList(){
+            let todo = document.getElementById("input-todo").value;
+
+            let node = document.createElement("li");
+            node.setAttribute("class", "list-group-item");
+            
+            let textnode = document.createTextNode(todo);
+            node.appendChild(textnode);
+
+            document.getElementById("todo-list").appendChild(node);
+        }
+    </script>
+</body>
+</html>
