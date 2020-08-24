@@ -17,6 +17,7 @@
  * limitations under the License
  */
 'use strict';
+require('dotenv').config();
 
 const express = require('express');
 const fetch = require('node-fetch');
@@ -40,7 +41,7 @@ const fakeForecast = {
     id: 0,
     main: 'broken clouds',
     icon: "04d",
-  }, ],
+  },],
   base: "stations",
   main: {
     temp: 32.96,
