@@ -1,12 +1,25 @@
+const Joi = require("joi");
 const db = require("../models");
 const Student = db.student;
 
 // Create and Save a new Student
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
+  // if (!req.body) {
+  //   res.status(400).send({ message: "Content can not be empty!" });
+  //   return;
+  // }
+
+  // Validate with npm joi
+  const schem = {
+    studentid: Joi.string(11).required(),
+    name: Joi.string().min(4).required(),
+  };
+
+  const result = Joi.validate(req.body, schem);
+
+  if (result.error) {
+    res.status(400).send(result.error.details[0].message);
   }
 
   // Create a Student
