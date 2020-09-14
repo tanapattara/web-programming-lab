@@ -10,12 +10,24 @@
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
+    <!-- PWA : Add manifast file -->
+    <link rel="manifest" href="/manifest.json" />
+    <!-- PWA : Add metadata-->
+    <meta name="description" content="A sample weather app" />
+    <!-- PWA : Add theme color-->
+    <meta name="theme-color" content="#2F3BA2" />
+    <!-- PWA : Add ios icon-->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Weather PWA" />
+    <link rel="apple-touch-icon" href="/images/icons/icon-152x152.png" />
   </head>
 
   <body>
     <!-- As a heading -->
     <nav class="navbar navbar-light bg-light mb-3">
       <span class="navbar-brand mb-0 h1">Weather</span>
+      <button class="btn btn-primary my-2 my-sm-0 btn-lg"><b>+</b></button>
     </nav>
     <div class="container" id="container">
       <div id="weather-card" class="card mb-3">
@@ -34,5 +46,15 @@
       </div>
     </div>
     <script src="index.js"></script>
+    <!-- PWA : Register service worker. -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js").then((reg) => {
+            console.log("Service worker registered.", reg);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
