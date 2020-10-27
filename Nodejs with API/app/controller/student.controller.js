@@ -38,8 +38,7 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Sttudent.",
+        message: err.message || "Some error occurred while creating the Sttudent.",
       });
     });
 };
@@ -47,10 +46,14 @@ exports.create = (req, res) => {
 // Retrieve all Student from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
-  var condition = name
-    ? { name: { $regex: new RegExp(name), $options: "i" } }
-    : {};
+  var condition = name ? {
+    name: {
+      $regex: new RegExp(name),
+      $options: "i"
+    }
+  } : {};
 
+  //console.log(condition);
   Student.find(condition)
     .then((data) => {
       res.send(data);
@@ -69,13 +72,17 @@ exports.findOne = (req, res) => {
   Student.findById(id)
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: "Not found student with id " + id });
+        res.status(404).send({
+          message: "Not found student with id " + id
+        });
       else res.send(data);
     })
     .catch((err) => {
       res
         .status(500)
-        .send({ message: "Error retrieving student with id=" + id });
+        .send({
+          message: "Error retrieving student with id=" + id
+        });
     });
 };
 
@@ -89,13 +96,17 @@ exports.update = (req, res) => {
 
   const id = req.params.id;
 
-  Student.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+  Student.findByIdAndUpdate(id, req.body, {
+      useFindAndModify: false
+    })
     .then((data) => {
       if (!data) {
         res.status(404).send({
           message: `Cannot update student with id=${id}. Maybe student was not found!`,
         });
-      } else res.send({ message: "Student was updated successfully." });
+      } else res.send({
+        message: "Student was updated successfully."
+      });
     })
     .catch((err) => {
       res.status(500).send({
@@ -137,15 +148,16 @@ exports.deleteAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all Students.",
+        message: err.message || "Some error occurred while removing all Students.",
       });
     });
 };
 
 // Find all Student
 exports.findAllStudent = (req, res) => {
-  Student.find({ alumni: false })
+  Student.find({
+      alumni: false
+    })
     .then((data) => {
       res.send(data);
     })
@@ -157,7 +169,9 @@ exports.findAllStudent = (req, res) => {
 };
 // Find all Alumni
 exports.findAllAlumni = (req, res) => {
-  Student.find({ alumni: true })
+  Student.find({
+      alumni: true
+    })
     .then((data) => {
       res.send(data);
     })
